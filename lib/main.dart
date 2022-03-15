@@ -11,8 +11,8 @@ class MyApp extends StatelessWidget {
       title: 'Material App',
       initialRoute: 'home',
       routes: {
-        'home':(_)=> HomeScreen(),
-        'maps':(_)=> MapScreen(),
+        'home': (_) => HomeScreen(),
+        'maps': (_) => MapScreen(),
       },
     );
   }
