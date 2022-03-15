@@ -14,6 +14,10 @@ class MyApp extends StatelessWidget {
         'home': (_) => HomeScreen(),
         'maps': (_) => MapScreen(),
       },
+      theme: ThemeData(
+        // primaryColor: Colors.deepPurple,
+        primarySwatch: Colors.deepPurple
+      ),
     );
   }
 }
