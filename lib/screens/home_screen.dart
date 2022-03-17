@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_reader/providers/db_provider.dart';
 import 'package:qr_reader/providers/ui_provider.dart';
 import 'package:qr_reader/screens/directions_screen.dart';
 import 'package:qr_reader/screens/maps_screen.dart';
@@ -38,6 +39,9 @@ class _HomePageBody extends StatelessWidget {
 
     //change to show page
     final currentIndex = uiProvider.selectedMenuOpt;
+
+    //Todo; temp read database
+    DBProvider.db.dababase;
 
     switch (currentIndex) {
       case 0:
