@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:qr_reader/providers/ui_provider.dart';
 import 'package:qr_reader/screens/screens.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -19,8 +19,8 @@ class MyApp extends StatelessWidget {
         title: 'Material App',
         initialRoute: 'home',
         routes: {
-          'home': (_) => HomeScreen(),
-          'maps': (_) => MapScreen(),
+          'home': (_) => const HomeScreen(),
+          'maps': (_) => const MapScreen(),
         },
         theme: ThemeData(
           // primaryColor: Colors.deepPurple,

@@ -22,8 +22,8 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       body: _HomePageBody(),
-      bottomNavigationBar: CustomNavigationBar(),
-      floatingActionButton: ScanButton(),
+      bottomNavigationBar: const CustomNavigationBar(),
+      floatingActionButton: const ScanButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
@@ -41,11 +41,11 @@ class _HomePageBody extends StatelessWidget {
 
     switch (currentIndex) {
       case 0:
-        return MapsScreen();
+        return const MapsScreen();
       case 1:
-        return DirectionsScreen();
+        return const DirectionsScreen();
       default:
-        return MapsScreen();
+        return const MapsScreen();
     }
   }
 }
