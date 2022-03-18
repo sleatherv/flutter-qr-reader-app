@@ -84,10 +84,17 @@ class DBProvider{
     final db = await database;
     final res = await db!.rawQuery('''
       SELECT * FROM Scans WHERE type = '$type'
-    '''); //whereArgs can be positional
+    ''');
 
     return res.isNotEmpty
           ? res.map((s) => ScanModel.fromMap(s)).toList()
           : [];
+  }
+
+  Future<int> updateScan (ScanModel updatedScan ) async{
+    final db  = await database;
+    final res = await db!.update('Scans', updatedScan.toMap(), where: 'id = ?', whereArgs: [updatedScan.id]); // !important: Don't forget where conditon
+
+    return res;
   }
 }
