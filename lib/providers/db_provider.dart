@@ -61,4 +61,33 @@ class DBProvider{
     //Last inserted item ID
     return res;
   }
+
+  Future<ScanModel?> getScanById (int scanID)async{
+    final db = await database;
+    final res = await db!.query('Scans', where: 'id = ?', whereArgs: [scanID]); //whereArgs can be positional
+
+    return res.isNotEmpty
+          ? ScanModel.fromMap(res.first)
+          : null;
+  }
+  
+  Future<List<ScanModel>> getAllScans ()async{
+    final db = await database;
+    final res = await db!.query('Scans'); //whereArgs can be positional
+
+    return res.isNotEmpty
+          ? res.map((s) => ScanModel.fromMap(s)).toList()
+          : [];
+  }
+
+  Future<List<ScanModel>> getScanByType (String type ) async{
+    final db = await database;
+    final res = await db!.rawQuery('''
+      SELECT * FROM Scans WHERE type = '$type'
+    '''); //whereArgs can be positional
+
+    return res.isNotEmpty
+          ? res.map((s) => ScanModel.fromMap(s)).toList()
+          : [];
+  }
 }
