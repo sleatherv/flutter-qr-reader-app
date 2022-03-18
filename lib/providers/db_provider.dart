@@ -14,7 +14,7 @@ class DBProvider{
   DBProvider._();
 
   Future<Database?> get database async {
-    _database ??= await initDB();
+    _database = await initDB();
     return _database;
   }
 
@@ -22,7 +22,7 @@ class DBProvider{
     //Path where we will store the database
     Directory documentDirectory = await getApplicationDocumentsDirectory();
     final path = join(documentDirectory.path, 'ScansDB.db'); //.db extension is very important
-   // print(path);
+
     //Create the database
     return await openDatabase(
       path,
@@ -94,6 +94,21 @@ class DBProvider{
   Future<int> updateScan (ScanModel updatedScan ) async{
     final db  = await database;
     final res = await db!.update('Scans', updatedScan.toMap(), where: 'id = ?', whereArgs: [updatedScan.id]); // !important: Don't forget where conditon
+
+    return res;
+  }
+
+  Future<int> deleteScan (int scanID) async{
+    final db = await database;
+
+    final res = await db!.delete('Scans', where: 'id = ?',whereArgs: [scanID]);
+
+    return res;
+  }
+  Future<int> deleteAllScans () async{
+    final db = await database;
+
+    final res = await db!.rawDelete('DELETE FROM Scans');
 
     return res;
   }
