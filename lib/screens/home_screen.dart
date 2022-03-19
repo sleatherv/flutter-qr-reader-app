@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_reader/providers/db_provider.dart';
+import 'package:qr_reader/providers/scan_list_provider.dart';
 import 'package:qr_reader/providers/ui_provider.dart';
 import 'package:qr_reader/screens/directions_screen.dart';
 import 'package:qr_reader/screens/maps_screen.dart';
@@ -39,20 +40,17 @@ class _HomePageBody extends StatelessWidget {
 
     //change to show page
     final currentIndex = uiProvider.selectedMenuOpt;
-
-    //Todo; temp read database
-    // final tempScan = ScanModel(value: 'https://google.com');
-    // DBProvider.db.newSan(tempScan);
-    // DBProvider.db.getScanById(14).then((scan) => print(scan!.value));
-    // DBProvider.db.getAllScans().then(print);
-    // DBProvider.db.deleteAllScans().then(print);
-
-    
+  
+    // DBProvider.db.deleteAllScans();
+    //Use the ScanListProvider
+    final scanListProvider = Provider.of<ScanListProvider>(context, listen: false);
 
     switch (currentIndex) {
       case 0:
+        scanListProvider.loadScanByType('geo');
         return const MapsScreen();
       case 1:
+        scanListProvider.loadScanByType('http');
         return const DirectionsScreen();
       default:
         return const MapsScreen();
