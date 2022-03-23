@@ -14,12 +14,24 @@ class MapsScreen extends StatelessWidget {
 
     return  ListView.builder(
       itemCount: scans.length,
-      itemBuilder: (_, i) => ListTile(
-        leading: Icon(Icons.map, color: Theme.of(context).primaryColor),
-        title: Text(scans[i].value),
-        subtitle:  Text(scans[i].id.toString()),
-        trailing:  const Icon(Icons.keyboard_arrow_right, color: Colors.grey),
-        onTap: () => print(scans[i].id) ,
+      itemBuilder: (_, i) => Dismissible(
+        key: UniqueKey(), //generate a unique key
+        background: Container(
+          color: Colors.red,
+          child: const Icon(Icons.delete),
+          alignment: Alignment.centerLeft,
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+        ),
+        child: ListTile(
+          leading: Icon(Icons.map, color: Theme.of(context).primaryColor),
+          title: Text(scans[i].value),
+          subtitle:  Text(scans[i].id.toString()),
+          trailing:  const Icon(Icons.keyboard_arrow_right, color: Colors.grey),
+          onTap: () => print(scans[i].id) ,
+        ),
+        onDismissed: (DismissDirection direction) {
+          Provider.of<ScanListProvider>(context, listen: false).deleteScanById(scans[i].id!);
+        },
       ),
     
     );
