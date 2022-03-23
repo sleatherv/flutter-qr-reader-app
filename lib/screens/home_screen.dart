@@ -12,14 +12,19 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // final uiProvider = Provider.of<UiProvider>(context);
+    
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         title: const Text('Historial'),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Provider.of<ScanListProvider>(context, listen: false).deleteAllScans();
+            },
             icon: const Icon(Icons.delete_forever),
+
           )
         ],
       ),
@@ -41,7 +46,6 @@ class _HomePageBody extends StatelessWidget {
     //change to show page
     final currentIndex = uiProvider.selectedMenuOpt;
   
-    // DBProvider.db.deleteAllScans();
     //Use the ScanListProvider
     final scanListProvider = Provider.of<ScanListProvider>(context, listen: false);
 
