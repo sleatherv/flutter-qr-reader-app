@@ -18,11 +18,13 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final ScanModel scan = ModalRoute.of(context)!.settings.arguments as ScanModel;
+  print(scan.getLatLng());
     final CameraPosition initialPoint = CameraPosition(
-      target: LatLng(37.42796133580664, -122.085749655962),
-      zoom: 14.4746,
+      target: scan.getLatLng(),
+      tilt: 50,
+      zoom: 17,
     );
-    final ScanModel scan = ModalRoute.of(context)!.settings.arguments as ScanModel; //Read the scan from argument
 
     return Scaffold(
       appBar: AppBar(
@@ -30,7 +32,8 @@ class _MapScreenState extends State<MapScreen> {
         title: const Text('Coordenadas'),
       ),
       body: GoogleMap(
-        mapType: MapType.hybrid,
+        myLocationButtonEnabled: true,
+        mapType: MapType.normal,
         initialCameraPosition: initialPoint,
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
