@@ -14,17 +14,23 @@ class MapScreen extends StatefulWidget {
 
 class _MapScreenState extends State<MapScreen> {
 
-  Completer<GoogleMapController> _controller = Completer();
+  final Completer<GoogleMapController> _controller = Completer();
 
   @override
   Widget build(BuildContext context) {
     final ScanModel scan = ModalRoute.of(context)!.settings.arguments as ScanModel;
-  print(scan.getLatLng());
+    print(scan.getLatLng());
     final CameraPosition initialPoint = CameraPosition(
       target: scan.getLatLng(),
       tilt: 50,
       zoom: 17,
     );
+
+    Set<Marker> markers = new Set<Marker>();
+    markers.add(Marker(
+      markerId: const MarkerId('geo-location'),
+      position: scan.getLatLng()
+    ));
 
     return Scaffold(
       appBar: AppBar(
@@ -34,6 +40,7 @@ class _MapScreenState extends State<MapScreen> {
       body: GoogleMap(
         myLocationButtonEnabled: true,
         mapType: MapType.normal,
+        markers: markers,
         initialCameraPosition: initialPoint,
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
