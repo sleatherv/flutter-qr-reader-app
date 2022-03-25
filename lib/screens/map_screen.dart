@@ -23,7 +23,7 @@ class _MapScreenState extends State<MapScreen> {
     final CameraPosition initialPoint = CameraPosition(
       target: scan.getLatLng(),
       tilt: 50,
-      zoom: 17,
+      zoom: 17.5,
     );
 
     Set<Marker> markers = new Set<Marker>();
@@ -36,15 +36,37 @@ class _MapScreenState extends State<MapScreen> {
       appBar: AppBar(
         elevation: 0,
         title: const Text('Coordenadas'),
+        actions: [
+          IconButton(
+            onPressed:() async {
+              final GoogleMapController controller = await _controller.future;
+              controller.animateCamera(CameraUpdate.newCameraPosition(
+                CameraPosition(
+                  target: scan.getLatLng(),
+                  zoom: 17.5,
+                  tilt: 50
+                )
+              ));
+            },
+            icon: const Icon(Icons.my_location_sharp)
+          )
+        ],
       ),
       body: GoogleMap(
-        myLocationButtonEnabled: true,
+        myLocationButtonEnabled: false,
+        zoomControlsEnabled: false,
         mapType: MapType.normal,
         markers: markers,
         initialCameraPosition: initialPoint,
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          
+        },
+        child: const Icon(Icons.layers),
       ),
     );
   }
