@@ -16,17 +16,19 @@ class _MapScreenState extends State<MapScreen> {
 
   final Completer<GoogleMapController> _controller = Completer();
 
+  MapType mapType = MapType.normal;
+
   @override
   Widget build(BuildContext context) {
     final ScanModel scan = ModalRoute.of(context)!.settings.arguments as ScanModel;
-    print(scan.getLatLng());
+    
     final CameraPosition initialPoint = CameraPosition(
       target: scan.getLatLng(),
       tilt: 50,
       zoom: 17.5,
     );
 
-    Set<Marker> markers = new Set<Marker>();
+    Set<Marker> markers = <Marker>{};
     markers.add(Marker(
       markerId: const MarkerId('geo-location'),
       position: scan.getLatLng()
@@ -55,7 +57,7 @@ class _MapScreenState extends State<MapScreen> {
       body: GoogleMap(
         myLocationButtonEnabled: false,
         zoomControlsEnabled: false,
-        mapType: MapType.normal,
+        mapType: mapType,
         markers: markers,
         initialCameraPosition: initialPoint,
         onMapCreated: (GoogleMapController controller) {
@@ -64,7 +66,12 @@ class _MapScreenState extends State<MapScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          
+          if(mapType == MapType.normal){
+            mapType = MapType.satellite;
+          }else{
+            mapType = MapType.normal;
+          }
+          setState(() {});
         },
         child: const Icon(Icons.layers),
       ),
